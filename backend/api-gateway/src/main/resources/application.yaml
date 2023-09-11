@@ -1,0 +1,38 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: 'true'
+          lower-case-service-id: 'true'
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+              allowedOrigins: "http://localhost:3000/"
+              allowedMethods: "*"
+              allowedHeaders: "*"
+      routes:
+       - id: map-provider
+         uri: lb://map-provider
+         predicates:
+           - Path=/map/**
+#         filters:
+#           - AuthenticationFilter
+
+       - id: auth-service
+         uri: lb://auth-service
+         predicates:
+           - Path=/**
+  application:
+    name: api-gateway
+logging:
+  level:
+    org:
+      springframework:
+        cloud: DEBUG
+server:
+  port: '8765'
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
