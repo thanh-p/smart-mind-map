@@ -16,13 +16,18 @@ spring:
          uri: lb://map-provider
          predicates:
            - Path=/map/**
-#         filters:
-#           - AuthenticationFilter
-
+         filters:
+           - AuthenticationFilter
+       - id: collector-service
+         uri: lb://collector-service
+         predicates:
+           - Path=/collector/**
+         filters:
+           - AuthenticationFilter
        - id: auth-service
          uri: lb://auth-service
          predicates:
-           - Path=/**
+           - Path=/auth/**
   application:
     name: api-gateway
 logging:

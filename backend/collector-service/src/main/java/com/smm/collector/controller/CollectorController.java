@@ -10,7 +10,7 @@ import com.smm.collector.message.KafkaMessagePublisher;
 import com.smm.common.dto.QuestionNodeItem;
 
 @RestController
-@RequestMapping("v1/api")
+@RequestMapping("collector/api/v1")
 public class CollectorController {
 
     @Autowired

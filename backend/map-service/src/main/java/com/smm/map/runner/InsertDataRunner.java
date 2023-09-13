@@ -32,6 +32,10 @@ public class InsertDataRunner implements ApplicationRunner {
         MapNode diagramNode2 = new MapNode("Structural Patterns", "", null, diagram);
         MapNode diagramNode3 = new MapNode("Behavioral Patterns", "", null, diagram);
         
+        if (topicRepository.count() > 0) {
+        	return;
+        }
+        
         topicRepository.save(topic);
         diagramRepository.save(diagram);
         diagramNodeRepository.save(diagramNode1);

@@ -14,7 +14,7 @@ function DiagramComponent() {
     function refreshDiagram() {
         retrieveDiagramNodeApi(diagramId, nodeId)
         .then(response => { 
-            setChildren(response.data.children)
+            setChildren(response.data.childNode)
             setDiagramInfo(response.data)
         })
         .catch(error => console.log(error))
@@ -23,16 +23,16 @@ function DiagramComponent() {
     return (
         <div className="container">
             <h1>{diagramInfo.title}</h1>
-            <div class="d-flex flex-row">
-            {
-                children.map(
-                    child => (
-                        <a class="p-2" href={"http://localhost:3000/diagrams/" + diagramId + "/nodes/" + child.id}>{child.title}</a> 
-                    )
-                )
-            }
+            <div className="d-flex flex-row">
+                {children.map((child, index) => (
+                    <a
+                    key={child.id}
+                    className="p-2 text-decoration-none"
+                    href={"http://localhost:3000/diagrams/" + diagramId + "/nodes/" + child.id}
+                    >{child.title}</a>
+                ))}
             </div>
-        </div>
+      </div>
     )
 }
 

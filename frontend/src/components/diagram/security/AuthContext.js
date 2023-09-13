@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { executeBasicAuthenticationService, executeJwtAuthenticationService } from "../api/AuthenticationApiService";
 import { apiClient } from "../api/ApiClient";
 
@@ -21,7 +21,7 @@ export default function AuthProvider({children}) {
             const response = await executeJwtAuthenticationService(username, password)
 
             if (response.status===200) {
-                const jwtToken = 'Bearer ' + response.data.token
+                const jwtToken = 'Bearer ' + response.data
                 setAuthenticated(true)
                 setUsername(username)
                 setToken(jwtToken)
