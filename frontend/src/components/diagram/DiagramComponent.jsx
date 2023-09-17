@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { retrieveDiagramNodeApi } from "./api/DiagramApiService";
 import { useAuth } from "./security/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link} from "react-router-dom";
 
 function DiagramComponent() {
 
@@ -9,7 +9,7 @@ function DiagramComponent() {
     const [children, setChildren] = useState([])
     const [diagramInfo, setDiagramInfo] = useState([])
 
-    useEffect (() => refreshDiagram(), [])
+    useEffect (() => refreshDiagram(), [diagramId, nodeId])
 
     function refreshDiagram() {
         retrieveDiagramNodeApi(diagramId, nodeId)
@@ -25,11 +25,13 @@ function DiagramComponent() {
             <h1>{diagramInfo.title}</h1>
             <div className="d-flex flex-row">
                 {children.map((child, index) => (
-                    <a
-                    key={child.id}
-                    className="p-2 text-decoration-none"
-                    href={"http://localhost:3000/diagrams/" + diagramId + "/nodes/" + child.id}
-                    >{child.title}</a>
+                    <Link
+                        key={child.id}
+                        className="p-2 text-decoration-none"
+                        to={`/diagrams/${diagramId}/nodes/${child.id}`}
+                    >
+                        {child.title}
+                    </Link>                  
                 ))}
             </div>
       </div>

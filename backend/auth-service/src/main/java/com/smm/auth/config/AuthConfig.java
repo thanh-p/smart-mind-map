@@ -27,7 +27,8 @@ public class AuthConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/api/v1/register", "/auth/api/v1/token", "/auth/api/v1/validate").permitAll()
+                .requestMatchers("/auth/api/v1/register", "/auth/api/v1/token"
+                        , "/auth/api/v1/validate", "/actuator/prometheus").permitAll()
                 .and()
                 .build();
     }

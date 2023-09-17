@@ -41,7 +41,9 @@ export default function DiagramApp() {
                              </AuthenticatedRoute>
                         } />
                         <Route path='/diagrams/:diagramId/nodes/:nodeId' element={
-                             <DiagramComponent/>
+                            <AuthenticatedRoute>
+                                <DiagramComponent/>
+                            </AuthenticatedRoute>
                         } />
                         <Route path='*' element={<ErrorComponent/>}></Route>
                     </Routes>

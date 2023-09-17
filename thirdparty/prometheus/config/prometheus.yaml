@@ -1,0 +1,17 @@
+scrape_configs:
+  - job_name: 'smm_services'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 2s
+    static_configs:
+      - targets: ['docker.for.mac.localhost:9898']
+        labels:
+          application: 'Auth Server'
+      - targets: ['docker.for.mac.localhost:8010']
+        labels:
+          application: 'Map Server'
+      - targets: ['docker.for.mac.localhost:8020']
+        labels:
+          application: 'Collector Server'
+      - targets: ['docker.for.mac.localhost:8030']
+        labels:
+          application: 'AI Evaluator Server'
