@@ -20,7 +20,7 @@ public class Topic {
 
 	@OneToMany(mappedBy = "topic")
 	@JsonIgnore
-	private List<Map> diagrams;
+	private List<Map> mapList;
 
 	public Topic() {
 		super();
@@ -47,12 +47,11 @@ public class Topic {
 		this.name = name;
 	}
 
-	public List<Map> getDiagrams() {
-		return diagrams;
+	public List<Map> getMapList() {
+		return mapList;
 	}
 
-	public void setDiagrams(List<Map> diagrams) {
-		this.diagrams = diagrams;
+	public void setMapList(List<Map> mapList) {
+		this.mapList = mapList;
 	}
-
 }

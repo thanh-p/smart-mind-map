@@ -1,11 +1,8 @@
 package com.smm.map.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.smm.common.dto.AnswerNodeItem;
+import com.smm.map.converter.DataConverter;
+import com.smm.map.dto.*;
 import com.smm.map.model.Map;
 import com.smm.map.model.MapNode;
 import com.smm.map.model.MapNodeItem;
@@ -14,50 +11,85 @@ import com.smm.map.model.repository.MapNodeItemRepository;
 import com.smm.map.model.repository.MapNodeRepository;
 import com.smm.map.model.repository.MapRepository;
 import com.smm.map.model.repository.TopicRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MapService {
-	private TopicRepository topicRepository;
-	private MapRepository diagramRepository;
-	private MapNodeRepository diagramNodeRepository;
-	private MapNodeItemRepository diagramNodeItemRepository;
+	private final TopicRepository topicRepository;
+	private final MapRepository mapRepository;
+	private final MapNodeRepository mapNodeRepository;
+	private final MapNodeItemRepository mapNodeItemRepository;
 
-	public MapService(TopicRepository topicRepository, MapRepository diagramRepository,
-			MapNodeRepository diagramNodeRepository, MapNodeItemRepository diagramNodeItemRepository) {
+	@Autowired
+	private DataConverter dataConverter;
+
+	public MapService(TopicRepository topicRepository, MapRepository mapRepository,
+					  MapNodeRepository mapNodeRepository, MapNodeItemRepository mapNodeItemRepository) {
 		super();
 		this.topicRepository = topicRepository;
-		this.diagramRepository = diagramRepository;
-		this.diagramNodeRepository = diagramNodeRepository;
-		this.diagramNodeItemRepository = diagramNodeItemRepository;
+		this.mapRepository = mapRepository;
+		this.mapNodeRepository = mapNodeRepository;
+		this.mapNodeItemRepository = mapNodeItemRepository;
 	}
 
-	public List<Topic> getAllTopic() {
-		return topicRepository.findAll();
+	public List<TopicResponse> findAllTopic() {
+		List<Topic> topics = topicRepository.findAll();
+		return topics.stream().map(topic -> dataConverter.toTopicResponse(topic)).toList();
 	}
 
-	public Optional<Topic> findTopicById(long topicId) {
-		return topicRepository.findById(topicId);
+	public TopicResponse findTopicById(long topicId) {
+		Topic topic = topicRepository.findById(topicId).orElseThrow();
+		return dataConverter.toTopicResponse(topic);
 	}
 
-	public Optional<Map> findDiagramById(long diagramId) {
-		return diagramRepository.findById(diagramId);
+	public List<MapResponse> findMapsByTopicId(long topicId) {
+		Topic topic = topicRepository.findById(topicId).orElseThrow();
+		return topic.getMapList().stream().map(map
+				-> new MapResponse(map.getId(), map.getTitle(), map.getDescription(), map.getVersion())).toList();
 	}
 
-	public Optional<MapNode> findDiagramNodeById(long nodeId) {
-		return diagramNodeRepository.findById(nodeId);
+	public MapDetailsResponse findMapById(long mapId) {
+		Map map = mapRepository.findById(mapId).orElseThrow();
+		return dataConverter.toMapDetailsResponse(map);
 	}
 
-	public boolean save(AnswerNodeItem answerNodeItem) {
-		Optional<MapNode> diagramNodeOptional = diagramNodeRepository.findById(answerNodeItem.getNodeId());
+	public MapNodeResponse findMapNodeById(long nodeId) {
+		MapNode mapNode = mapNodeRepository.findById(nodeId).orElseThrow();
+		return dataConverter.toMapNodeResponse(mapNode);
+	}
 
-		if (diagramNodeOptional.isEmpty()) {
-			return false;
+	public Topic save(TopicRequest topicRequest) {
+		Topic topic = dataConverter.toTopic(topicRequest);
+		return topicRepository.save(topic);
+	}
+
+	public Map save(MapRequest mapRequest) {
+		Topic topic = topicRepository.findById(mapRequest.getTopicId()).orElseThrow();
+		Map map = dataConverter.toMap(mapRequest, topic);
+		return mapRepository.save(map);
+	}
+
+	public MapNode save(MapNodeRequest mapNodeRequest) {
+		Map map = mapRepository.findById(mapNodeRequest.getMapId()).orElseThrow();
+		MapNode parentMapNode = null;
+
+		if (mapNodeRequest.getParentNodeId() != null) {
+			parentMapNode = mapNodeRepository.findById(mapNodeRequest.getParentNodeId()).orElseThrow();
 		}
 
-		MapNodeItem diagramNodeItem = new MapNodeItem(diagramNodeOptional.get(), answerNodeItem.getQuestion(),
+		MapNode mapNode = dataConverter.toMapNode(mapNodeRequest, parentMapNode, map);
+		return mapNodeRepository.save(mapNode);
+	}
+
+	public MapNodeItem save(AnswerNodeItem answerNodeItem) {
+		MapNode mapNode = mapNodeRepository.findById(answerNodeItem.getNodeId()).orElseThrow();
+		MapNodeItem mapNodeItem = new MapNodeItem(mapNode, answerNodeItem.getQuestion(),
 				answerNodeItem.getAnswer());
-		diagramNodeItemRepository.save(diagramNodeItem);
-		return true;
+		return mapNodeItemRepository.save(mapNodeItem);
 	}
 
 }

@@ -1,77 +1,62 @@
 package com.smm.map.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.smm.map.dto.*;
+import com.smm.map.exception.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import com.smm.map.model.Map;
-import com.smm.map.model.MapNode;
-import com.smm.map.model.Topic;
 import com.smm.map.service.MapService;
 
 @RestController
 @RequestMapping("map/api/v1")
 public class MapController {
-	private MapService diagramService;
+	private MapService mapService;
 
-	public MapController(MapService diagramService) {
+	public MapController(MapService mapService) {
 		super();
-		this.diagramService = diagramService;
+		this.mapService = mapService;
 	}
 
 	@GetMapping(value = "/topics")
-	public List<Topic> getAllTopic() {
-		return diagramService.getAllTopic();
+	public ResponseEntity<List<TopicResponse>> getAllTopic() {
+		List<TopicResponse> topicResponseList = mapService.findAllTopic();
+		return ResponseEntity.ok().body(topicResponseList);
 	}
 
 	@GetMapping(value = "/topics/{topicId}")
-	public Topic getTopic(@PathVariable long topicId) {
-		Optional<Topic> topicOptional = diagramService.findTopicById(topicId);
-
-		if (topicOptional.isEmpty()) {
-			return null;
-		}
-
-		return topicOptional.get();
+	public TopicResponse getTopic(@PathVariable long topicId) {
+		return mapService.findTopicById(topicId);
 	}
 
-	@GetMapping(value = "/topics/{topicId}/diagrams")
-	public List<Map> getAllDiagramOfOneTopic(@PathVariable long topicId) {
-		Optional<Topic> topicOptional = diagramService.findTopicById(topicId);
-
-		if (topicOptional.isEmpty()) {
-			return null;
-		}
-
-		List<Map> diagrams = topicOptional.get().getDiagrams();
-
-		return diagrams;
+	@GetMapping(value = "/topics/{topicId}/maps")
+	public List<MapResponse> getMapsOfTopic(@PathVariable long topicId) {
+		return mapService.findMapsByTopicId(topicId);
 	}
 
-	@GetMapping(value = "/diagrams/{diagramId}/nodes/{nodeId}")
-	public MapNode getDiagramNode(@PathVariable long diagramId, @PathVariable long nodeId) {
-		Optional<Map> diagramOptional = diagramService.findDiagramById(diagramId);
+	@GetMapping(value = "/maps/{mapId}")
+	public MapDetailsResponse getMap(@PathVariable long mapId) {
+		return mapService.findMapById(mapId);
+	}
 
-		if (diagramOptional.isEmpty()) {
-			return null;
-		}
+	@GetMapping(value = "/nodes/{nodeId}")
+	public MapNodeResponse getNode(@PathVariable long nodeId) {
+		return mapService.findMapNodeById(nodeId);
+	}
 
-		if (nodeId == 0) {
-			Map diagram = diagramOptional.get();
-			MapNode node = new MapNode(diagram.getId(), diagram.getTitle(), diagram.getDescription(), diagram.getDiagramNodes());
-			return node;
-		}
+	@PostMapping(value = "/topics")
+	public void saveTopic(@RequestBody TopicRequest topicRequest) {
+		mapService.save(topicRequest);
+	}
 
-		Optional<MapNode> diagramNodeOptional = diagramService.findDiagramNodeById(nodeId);
+	@PostMapping(value = "/maps")
+	public void saveMap(@RequestBody MapRequest mapRequest) {
+		mapService.save(mapRequest);
+	}
 
-		if (diagramNodeOptional.isEmpty()) {
-			return null;
-		}
-
-		return diagramNodeOptional.get();
+	@PostMapping(value = "/nodes")
+	public void saveMapNode(@RequestBody MapNodeRequest mapNodeRequest) {
+		mapService.save(mapNodeRequest);
 	}
 }

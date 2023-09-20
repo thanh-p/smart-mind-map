@@ -35,9 +35,9 @@ public class MapNode {
 	private List<MapNodeItem> nodeItems;
 
 	@ManyToOne
-	@JoinColumn(name = "diagram")
+	@JoinColumn(name = "map")
 	@JsonIgnore
-	private Map diagram;
+	private Map map;
 
 	private int level;
 
@@ -45,12 +45,12 @@ public class MapNode {
 		super();
 	}
 
-	public MapNode(String title, String description, MapNode parentNode, Map diagram) {
+	public MapNode(String title, String description, MapNode parentNode, Map map) {
 		super();
 		this.description = description;
 		this.title = title;
 		this.parentNode = parentNode;
-		this.diagram = diagram;
+		this.map = map;
 
 		if (parentNode == null) {
 			this.level = 1;
@@ -69,7 +69,7 @@ public class MapNode {
 		}
 
 		this.parentNode = parent;
-		this.diagram = parent.diagram;
+		this.map = parent.map;
 		this.level = parent.level + 1;
 	}
 	
@@ -114,12 +114,12 @@ public class MapNode {
 		this.parentNode = parentNode;
 	}
 
-	public Map getDiagram() {
-		return diagram;
+	public Map getMap() {
+		return map;
 	}
 
-	public void setDiagram(Map diagram) {
-		this.diagram = diagram;
+	public void setMap(Map map) {
+		this.map = map;
 	}
 
 	public int getLevel() {

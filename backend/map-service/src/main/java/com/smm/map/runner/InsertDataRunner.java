@@ -19,52 +19,52 @@ public class InsertDataRunner implements ApplicationRunner {
     private TopicRepository topicRepository;
     
     @Autowired
-    private MapRepository diagramRepository;
+    private MapRepository mapRepository;
 
     @Autowired
-    private MapNodeRepository diagramNodeRepository;
+    private MapNodeRepository mapNodeRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Topic topic = new Topic("Design");
         Map diagram = new Map("Design Patterns", "v0.1", "", topic);
-        MapNode diagramNode1 = new MapNode("Creational Patterns", "", null, diagram);
-        MapNode diagramNode2 = new MapNode("Structural Patterns", "", null, diagram);
-        MapNode diagramNode3 = new MapNode("Behavioral Patterns", "", null, diagram);
+        MapNode mapNode1 = new MapNode("Creational Patterns", "", null, diagram);
+        MapNode mapNode2 = new MapNode("Structural Patterns", "", null, diagram);
+        MapNode mapNode3 = new MapNode("Behavioral Patterns", "", null, diagram);
         
         if (topicRepository.count() > 0) {
         	return;
         }
         
         topicRepository.save(topic);
-        diagramRepository.save(diagram);
-        diagramNodeRepository.save(diagramNode1);
-        diagramNodeRepository.save(diagramNode2);
-        diagramNodeRepository.save(diagramNode3);
+        mapRepository.save(diagram);
+        mapNodeRepository.save(mapNode1);
+        mapNodeRepository.save(mapNode2);
+        mapNodeRepository.save(mapNode3);
         
-        diagramNodeRepository.save(new MapNode("Factory Method", "", diagramNode1));
-        diagramNodeRepository.save(new MapNode("Abstract Factory", "", diagramNode1));
-        diagramNodeRepository.save(new MapNode("Builder", "", diagramNode1));
-        diagramNodeRepository.save(new MapNode("Prototype", "", diagramNode1));
-        diagramNodeRepository.save(new MapNode("Singleton", "", diagramNode1));    
+        mapNodeRepository.save(new MapNode("Factory Method", "", mapNode1));
+        mapNodeRepository.save(new MapNode("Abstract Factory", "", mapNode1));
+        mapNodeRepository.save(new MapNode("Builder", "", mapNode1));
+        mapNodeRepository.save(new MapNode("Prototype", "", mapNode1));
+        mapNodeRepository.save(new MapNode("Singleton", "", mapNode1));
     
-        diagramNodeRepository.save(new MapNode("Adapter", "", diagramNode2));
-        diagramNodeRepository.save(new MapNode("Bridge", "", diagramNode2));
-        diagramNodeRepository.save(new MapNode("Composite", "", diagramNode2));
-        diagramNodeRepository.save(new MapNode("Decorator", "", diagramNode2));
-        diagramNodeRepository.save(new MapNode("Facade", "", diagramNode2)); 
-        diagramNodeRepository.save(new MapNode("Flyweight", "", diagramNode2)); 
-        diagramNodeRepository.save(new MapNode("Proxy", "", diagramNode2)); 
+        mapNodeRepository.save(new MapNode("Adapter", "", mapNode2));
+        mapNodeRepository.save(new MapNode("Bridge", "", mapNode2));
+        mapNodeRepository.save(new MapNode("Composite", "", mapNode2));
+        mapNodeRepository.save(new MapNode("Decorator", "", mapNode2));
+        mapNodeRepository.save(new MapNode("Facade", "", mapNode2));
+        mapNodeRepository.save(new MapNode("Flyweight", "", mapNode2));
+        mapNodeRepository.save(new MapNode("Proxy", "", mapNode2));
         
-        diagramNodeRepository.save(new MapNode("Chain of Responsibility", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Command", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Iterator", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Mediator", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Memento", "", diagramNode3)); 
-        diagramNodeRepository.save(new MapNode("Observer", "", diagramNode3)); 
-        diagramNodeRepository.save(new MapNode("State", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Strategy", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Template Method", "", diagramNode3));
-        diagramNodeRepository.save(new MapNode("Visitor", "", diagramNode3));
+        mapNodeRepository.save(new MapNode("Chain of Responsibility", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Command", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Iterator", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Mediator", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Memento", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Observer", "", mapNode3));
+        mapNodeRepository.save(new MapNode("State", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Strategy", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Template Method", "", mapNode3));
+        mapNodeRepository.save(new MapNode("Visitor", "", mapNode3));
     }
 }

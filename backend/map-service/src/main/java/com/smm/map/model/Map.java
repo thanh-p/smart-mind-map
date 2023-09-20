@@ -26,9 +26,9 @@ public class Map {
 	
 	private String version;
 
-	@OneToMany(mappedBy = "diagram")
+	@OneToMany(mappedBy = "map")
 	@Where(clause = "level = '1'")
-	private List<MapNode> diagramNodes;
+	private List<MapNode> mapNodes;
 
 	@ManyToOne
 	@JoinColumn(name = "topic_id")
@@ -40,7 +40,6 @@ public class Map {
 	}
 
 	public Map(String title, String version, String description, Topic topic) {
-		super();
 		this.title = title;
 		this.version = version;
 		this.description = description;
@@ -63,12 +62,12 @@ public class Map {
 		this.version = version;
 	}
 
-	public List<MapNode> getDiagramNodes() {
-		return diagramNodes;
+	public List<MapNode> getMapNodes() {
+		return mapNodes;
 	}
 
-	public void setDiagramNodes(List<MapNode> diagramNodes) {
-		this.diagramNodes = diagramNodes;
+	public void setMapNodes(List<MapNode> mapNodes) {
+		this.mapNodes = mapNodes;
 	}
 
 	public Topic getTopic() {
