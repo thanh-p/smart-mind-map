@@ -10,9 +10,9 @@ public class MapDetailsResponse extends MapResponse {
 	public MapDetailsResponse() {
 	}
 
-	public MapDetailsResponse(long id, String title, String description, String version, List<MapNodeResponse> nodes) {
+	public MapDetailsResponse(long id, String name, String description, String version, List<MapNodeResponse> nodes) {
 		this.id = id;
-		this.title = title;
+		this.name = name;
 		this.description = description;
 		this.version = version;
 		this.nodes = nodes;

@@ -6,7 +6,7 @@ public class MapNodeResponse {
 
 	private Long id;
 
-	private String title;
+	private String name;
 
 	private String description;
 
@@ -15,10 +15,10 @@ public class MapNodeResponse {
 	public MapNodeResponse() {
 	}
 
-	public MapNodeResponse(Long id, String description, String title, List<MapNodeResponse> childNodes) {
+	public MapNodeResponse(Long id, String name, String description, List<MapNodeResponse> childNodes) {
 		this.id = id;
+		this.name = name;
 		this.description = description;
-		this.title = title;
 		this.childNodes = childNodes;
 	}
 
@@ -38,12 +38,12 @@ public class MapNodeResponse {
 		this.description = description;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<MapNodeResponse> getChildNodes() {

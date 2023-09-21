@@ -21,7 +21,7 @@ public class MapNode {
 
 	private String description;
 
-	private String title;
+	private String name;
 
 	@ManyToOne
 	@JoinColumn(name = "parent_id")
@@ -45,10 +45,10 @@ public class MapNode {
 		super();
 	}
 
-	public MapNode(String title, String description, MapNode parentNode, Map map) {
+	public MapNode(String name, String description, MapNode parentNode, Map map) {
 		super();
 		this.description = description;
-		this.title = title;
+		this.name = name;
 		this.parentNode = parentNode;
 		this.map = map;
 
@@ -59,10 +59,10 @@ public class MapNode {
 		}
 	}
 
-	public MapNode(String title, String description, MapNode parent) {
+	public MapNode(String name, String description, MapNode parent) {
 		super();
 		this.description = description;
-		this.title = title;
+		this.name = name;
 
 		if (parent == null) {
 			throw new IllegalArgumentException("Diagram Node is not allowed to be NULL.");
@@ -73,11 +73,11 @@ public class MapNode {
 		this.level = parent.level + 1;
 	}
 	
-	public MapNode(Long id, String title, String description, List<MapNode> childNode) {
+	public MapNode(Long id, String name, String description, List<MapNode> childNode) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.title = title;
+		this.name = name;
 		this.childNode = childNode;
 		this.level = 0;
 	}
@@ -98,12 +98,12 @@ public class MapNode {
 		this.description = description;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public MapNode getParentNode() {

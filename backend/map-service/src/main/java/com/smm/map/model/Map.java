@@ -22,7 +22,7 @@ public class Map {
 
 	private String description;
 
-	private String title;
+	private String name;
 	
 	private String version;
 
@@ -39,8 +39,8 @@ public class Map {
 		super();
 	}
 
-	public Map(String title, String version, String description, Topic topic) {
-		this.title = title;
+	public Map(String name, String version, String description, Topic topic) {
+		this.name = name;
 		this.version = version;
 		this.description = description;
 		this.topic = topic;
@@ -86,12 +86,12 @@ public class Map {
 		this.description = description;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

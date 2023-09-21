@@ -3,7 +3,7 @@ package com.smm.map.dto;
 public class MapResponse {
 
 	protected Long id;
-	protected String title;
+	protected String name;
 
 	protected String description;
 
@@ -12,9 +12,9 @@ public class MapResponse {
 	public MapResponse() {
 	}
 
-	public MapResponse(Long id, String title, String description, String version) {
+	public MapResponse(Long id, String name, String description, String version) {
 		this.id = id;
-		this.title = title;
+		this.name = name;
 		this.description = description;
 		this.version = version;
 	}
@@ -27,12 +27,12 @@ public class MapResponse {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {

@@ -16,11 +16,11 @@ public class DataConverter {
     }
 
     public Map toMap(MapRequest mapRequest, Topic topic) {
-        return new Map(mapRequest.getTitle(), mapRequest.getVersion(), mapRequest.getDescription(), topic);
+        return new Map(mapRequest.getName(), mapRequest.getVersion(), mapRequest.getDescription(), topic);
     }
 
     public MapNode toMapNode(MapNodeRequest mapNodeRequest, MapNode parent, Map map) {
-        return new MapNode(mapNodeRequest.getTitle(), mapNodeRequest.getDescription(), parent, map);
+        return new MapNode(mapNodeRequest.getName(), mapNodeRequest.getDescription(), parent, map);
     }
 
     public TopicResponse toTopicResponse(Topic topic) {
@@ -29,18 +29,18 @@ public class DataConverter {
 
     public MapNodeResponse toMapNodeResponse(MapNode mapNode) {
         return new MapNodeResponse
-                (mapNode.getId(), mapNode.getTitle(), mapNode.getDescription(), toMapNodeResponseList(mapNode.getChildNode()));
+                (mapNode.getId(), mapNode.getName(), mapNode.getDescription(), toMapNodeResponseList(mapNode.getChildNode()));
     }
 
     public MapDetailsResponse toMapDetailsResponse(Map map) {
-        return new MapDetailsResponse(map.getId(), map.getTitle()
+        return new MapDetailsResponse(map.getId(), map.getName()
                 , map.getDescription(), map.getVersion(), toMapNodeResponseList(map.getMapNodes()));
     }
 
     public List<MapNodeResponse> toMapNodeResponseList(List<MapNode> mapNodeList) {
         return mapNodeList.stream().map(node
                 -> new MapNodeResponse(node.getId(),
-                node.getDescription(), node.getTitle(),
+                node.getName(), node.getDescription(),
                 toMapNodeResponseList(node.getChildNode()))).toList();
     }
 }

@@ -4,7 +4,7 @@ public class MapNodeRequest {
 
 	private String description;
 
-	private String title;
+	private String name;
 
 	private Long parentNodeId;
 
@@ -21,12 +21,12 @@ public class MapNodeRequest {
 		this.description = description;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getParentNodeId() {

@@ -2,7 +2,7 @@ package com.smm.map.dto;
 
 public class MapRequest {
 
-	private String title;
+	private String name;
 
 	private String description;
 
@@ -13,12 +13,12 @@ public class MapRequest {
 	public MapRequest() {
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {

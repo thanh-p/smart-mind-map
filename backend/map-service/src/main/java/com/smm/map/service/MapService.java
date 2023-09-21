@@ -49,7 +49,7 @@ public class MapService {
 	public List<MapResponse> findMapsByTopicId(long topicId) {
 		Topic topic = topicRepository.findById(topicId).orElseThrow();
 		return topic.getMapList().stream().map(map
-				-> new MapResponse(map.getId(), map.getTitle(), map.getDescription(), map.getVersion())).toList();
+				-> new MapResponse(map.getId(), map.getName(), map.getDescription(), map.getVersion())).toList();
 	}
 
 	public MapDetailsResponse findMapById(long mapId) {
