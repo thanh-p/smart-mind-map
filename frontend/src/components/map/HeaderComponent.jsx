@@ -24,9 +24,6 @@ function HeaderComponent() {
                             <li className="nav-item fs-5">
                                 {isAuthenticated && <Link className="nav-link" to="/topics">Topics</Link>}
                             </li>
-                            <li className="nav-item fs-5">
-                                {isAuthenticated && <Link className="nav-link" to="/diagrams">Diagrams</Link>}
-                            </li>
                         </ul>
                     </div>
                     <ul className="navbar-nav">

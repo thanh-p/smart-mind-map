@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
-import './DiagramApp.css'
+import './MapApp.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import LoginComponent from './LoginComponent'
 import LogoutComponent from './LogoutComponent'
@@ -8,8 +8,11 @@ import ErrorComponent from './ErrorComponent'
 import FooterComponent from "./FooterComponent"
 import HeaderComponent from "./HeaderComponent"
 import AuthProvider from './security/AuthContext'
-import DiagramComponent from './DiagramComponent'
+import MapComponent from './MapComponent'
 import { useAuth } from './security/AuthContext'
+import TopicComponent from './TopicComponent'
+import TopicMapComponent from './TopicMapComponent'
+import NodeComponent from './NodeComponent'
 
 function AuthenticatedRoute({children}) {
     const authContext = useAuth()
@@ -40,9 +43,24 @@ export default function DiagramApp() {
                                 <LogoutComponent/>
                              </AuthenticatedRoute>
                         } />
-                        <Route path='/diagrams/:diagramId/nodes/:nodeId' element={
+                        <Route path='/topics' element={
+                             <AuthenticatedRoute>
+                                <TopicComponent/>
+                             </AuthenticatedRoute>
+                        } />
+                        <Route path='/topics/:topicId/maps' element={
                             <AuthenticatedRoute>
-                                <DiagramComponent/>
+                                <TopicMapComponent/>
+                            </AuthenticatedRoute>
+                        } />
+                        <Route path='/maps/:mapId' element={
+                            <AuthenticatedRoute>
+                                <MapComponent/>
+                            </AuthenticatedRoute>
+                        } />
+                        <Route path='/nodes/:nodeId' element={
+                            <AuthenticatedRoute>
+                                <NodeComponent/>
                             </AuthenticatedRoute>
                         } />
                         <Route path='*' element={<ErrorComponent/>}></Route>
